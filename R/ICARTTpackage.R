@@ -169,24 +169,54 @@ read.ict <- function(input) {
 #' @export
 #'
 ict.to.csv <- function(input, outfile = NULL) {
-
-  # get length of header (minus last line, which has variable names)
-  headerlength <- (scan(input, nlines = 1, sep = ",", quiet = T)[1] - 1)
-
-  # check that data is one-dimensional, time-series
-  FFI <- scan(input, nlines = 1, sep = ",", quiet = T)[2]
-  if(FFI == "1001") {
-
-    # import ICARTT data, without metadata
-    dataset <- read.table(input, skip = headerlength, header = TRUE, sep=",")
-
-    # write as CSV file, and print new file path:
+  
+  # Read the first line as a character string
+  first_line <- readLines(input, n = 1)
+  
+  # Debugging: Print the first line to understand its content
+  print(first_line)
+  
+  # Check for comma or tab and add a comma after the first two characters if missing
+  if (!grepl("[,\t]", first_line)) {
+    # Add a comma after the first two characters
+    first_line <- paste0(substr(first_line, 1, 2), ",", substr(first_line, 3, nchar(first_line)))
+  }
+  
+  # Split the first line on comma or tab
+  header_info <- strsplit(first_line, "[,\t]")[[1]]
+  
+  # Ensure header_info contains at least two values
+  if (length(header_info) >= 2) {
+    # Trim whitespace from elements
+    header_info <- trimws(header_info)
+    # Get header length (the first element)
+    headerlength <- as.integer(header_info[1]) - 1
+    # Get FFI (the second element)
+    FFI <- as.character(header_info[2])
+  } else {
+    stop("The first line of the input file does not contain enough values. Expected at least two values.")
+  }
+  
+  # Debugging: Print the headerlength and FFI values
+  print(paste("headerlength:", headerlength))
+  print(paste("FFI:", FFI))
+  
+  # Check if FFI is time-series data (1001)
+  if (FFI == "1001") {
+    
+    # Determine the separator used in the file
+    sep <- ifelse(grepl("\t", first_line), "\t", ",")
+    
+    # Import ICARTT data, without metadata
+    dataset <- read.table(input, skip = headerlength, header = TRUE, sep = sep)
+    
+    # Write as CSV file, and print new file path
     inputname <- gsub('.{4}$', '', input)
     filepath <- ifelse(is.null(outfile), paste0(inputname, ".csv"), outfile)
-    write.csv(dataset, file=filepath, row.names=FALSE)
-    filesize <- file.info(filepath)[1,1]/1024
-    cat("New file: ", filepath, "\nSize: ",filesize,"KB\n")
-
+    write.csv(dataset, file = filepath, row.names = FALSE)
+    filesize <- file.info(filepath)[1,1] / 1024
+    cat("New file: ", filepath, "\nSize: ", filesize, "KB\n")
+    
   } else {
     cat("Sorry, this package only supports time-series data files (FFI = 1001), not multidimensional data files (FFI = 2110 or FFI = 2310).")
   }
