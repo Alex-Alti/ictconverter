@@ -4,7 +4,7 @@
 \usage{
 ict.header(input, verbose = TRUE, raw = FALSE)
 }
-\arugments{
+\arguments{
 \item{input}{Path to the input .ict file}
 
 \item{verbose}{Defaults to TRUE; print all fields with description. If verbose = FALSE, output excludes full variable list, 'normal comments' section, and data file details.}
