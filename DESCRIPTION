@@ -1,7 +1,7 @@
 Package: ICTConvert
 Type: Package
 Title: ICARTT converter
-Version: 0.1.0
+Version: 0.1.1
 Author: Source code origin by Zoey Werbin. Rebuilt and updated by Alex Altiere
 Maintainer: Alex Altiere <aaltiere2023@fau.edu>
 Description: A package for converting ICARTT files to CSV and JSON formats, and for basic analysis and visualization.
