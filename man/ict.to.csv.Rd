@@ -4,7 +4,7 @@
 \usage{
 ict.to.csv(input, outfile = NULL)
 }
-\arguemnts{
+\arguments{
 \item{input}{Path to the input .ict file}
 
 \item{outfile}{Defaults to NULL: output file is created in the working directory with the same base name as the input file.}
