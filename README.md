@@ -5,10 +5,9 @@ More doccumentation can be found on https://rdrr.io/github/zoey-rw/ICARTTr/man/i
 
 
 # To install use the following code
+```ruby
 install.packages("devtools")
-
 library(devtools)
-
 install_github("Alex-Alti/ictconverter")
-
 library(ICTConvert)
+```
