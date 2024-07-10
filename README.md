@@ -4,7 +4,7 @@ Ict converter based on a source code originally created Zoey Werbin and updated 
 More doccumentation can be found on https://rdrr.io/github/zoey-rw/ICARTTr/man/ict.to.csv.html
 
 
-# To install the package, run the following code
+# Installing the package
 ```ruby
 install.packages("devtools")
 library(devtools)
