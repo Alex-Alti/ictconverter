@@ -1,7 +1,7 @@
 ################################################
 #########    ICARTT PACKAGE FOR R   ############
-###### developed Fall 2017 by Zoey Werbin ######
 ##### Rebuilt Spring 2024 by Alex Altiere ######
+####### Based on package by Zoey Werbin ########
 ################################################
 
 
